@@ -1,36 +1,33 @@
 ---
-name: web-design-guidelines
+name: writing-guidelines
 description: |
-  Review UI code for Web Interface Guidelines compliance by the Vercel engineering team. Covers layout, typography, color, motion, and accessibility for product UI.
+  Review docs/prose for Writing Guidelines compliance. Use when asked to "review my docs", "check writing style", "audit prose", "review docs voice and tone", or "check this page against the writing handbook".
 triggers:
-  - "web design guidelines"
-  - "vercel design"
-  - "product ui standards"
-  - "design checklist"
-  - "review my UI"
-  - "check accessibility"
-  - "audit design"
-  - "review UX"
-  - "设计审查"
+  - "review my docs"
+  - "check writing style"
+  - "audit prose"
+  - "review docs voice and tone"
+  - "writing handbook"
+  - "文档审查"
 metadata:
   author: vercel
   version: "1.0.0"
   argument-hint: <file-or-pattern>
 od:
-  mode: design-system
+  mode: prototype
   surface: web
   platform: desktop
-  category: design-systems
-  upstream: "https://github.com/vercel-labs/web-interface-guidelines"
+  category: documentation
+  upstream: "https://github.com/vercel-labs/writing-guidelines"
   preview:
     type: markdown
   example_prompt: |
-    Review my UI code against the Vercel Web Interface Guidelines — check layout, typography, color, motion, and accessibility compliance.
+    Review my documentation files for compliance with the Vercel Writing Guidelines — check voice, tone, formatting, and structure.
 ---
 
-# Web Interface Guidelines
+# Writing Guidelines
 
-Review files for compliance with Web Interface Guidelines.
+Review files for compliance with Writing Guidelines.
 
 ## How It Works
 
@@ -44,7 +41,7 @@ Review files for compliance with Web Interface Guidelines.
 Fetch fresh guidelines before each review:
 
 ```
-https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md
+https://raw.githubusercontent.com/vercel-labs/writing-guidelines/main/command.md
 ```
 
 Use WebFetch to retrieve the latest rules. The fetched content contains all the rules and output format instructions.
