@@ -49,6 +49,26 @@ jobs:
           pnpm -C e2e exec tsx scripts/playwright.ts clean
           pnpm -C e2e exec playwright test -c playwright.visual.config.ts
 
+      - name: Validate R2 config
+        env:
+          CLOUDFLARE_R2_RELEASES_URL: ${{ secrets.CLOUDFLARE_R2_RELEASES_URL }}
+          CLOUDFLARE_R2_RELEASES_BUCKET: ${{ secrets.CLOUDFLARE_R2_RELEASES_BUCKET }}
+          CLOUDFLARE_R2_RELEASES_AK: ${{ secrets.CLOUDFLARE_R2_RELEASES_AK }}
+          CLOUDFLARE_R2_RELEASES_SK: ${{ secrets.CLOUDFLARE_R2_RELEASES_SK }}
+        shell: bash
+        run: |
+          missing=0
+          for var in CLOUDFLARE_R2_RELEASES_URL CLOUDFLARE_R2_RELEASES_BUCKET CLOUDFLARE_R2_RELEASES_AK CLOUDFLARE_R2_RELEASES_SK; do
+            if [ -z "${!var}" ]; then
+              echo "::error::$var is empty — the corresponding secret is missing or not set. Baseline upload cannot proceed."
+              missing=1
+            fi
+          done
+          if [ "$missing" -ne 0 ]; then
+            echo "::error::Baseline screenshot upload requires all four CLOUDFLARE_R2_RELEASES_* secrets to be set in the repository secrets."
+            exit 1
+          fi
+
       - name: Upload baseline screenshots to R2
         env:
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}

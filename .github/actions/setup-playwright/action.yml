@@ -29,12 +29,13 @@ runs:
 
         if [ "$persistent_enabled" = "true" ]; then
           if [ -z "${PLAYWRIGHT_BROWSERS_PATH:-}" ]; then
-            echo "runner-labels contains od-persistent-ci, but PLAYWRIGHT_BROWSERS_PATH is not set" >&2
-            exit 1
+            echo "::warning::runner-labels contains od-persistent-ci, but PLAYWRIGHT_BROWSERS_PATH is not set — falling back to standard cache" >&2
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          else
+            mkdir -p "$PLAYWRIGHT_BROWSERS_PATH"
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+            echo "path=$PLAYWRIGHT_BROWSERS_PATH" >> "$GITHUB_OUTPUT"
           fi
-          mkdir -p "$PLAYWRIGHT_BROWSERS_PATH"
-          echo "enabled=true" >> "$GITHUB_OUTPUT"
-          echo "path=$PLAYWRIGHT_BROWSERS_PATH" >> "$GITHUB_OUTPUT"
         else
           echo "enabled=false" >> "$GITHUB_OUTPUT"
         fi
