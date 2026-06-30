@@ -19,6 +19,7 @@ od:
   platform: desktop
   category: documentation
   upstream: "https://github.com/vercel-labs/writing-guidelines"
+  source-commit: 83e2316b034cf572400513538e4e4da01c4cc742
   preview:
     type: markdown
   example_prompt: |

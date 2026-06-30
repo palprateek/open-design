@@ -22,6 +22,7 @@ od:
   platform: desktop
   category: design-systems
   upstream: "https://github.com/vercel-labs/web-interface-guidelines"
+  source-commit: 4e799d45c17aec1498c269287a83b9dba22b966b
   preview:
     type: markdown
   example_prompt: |

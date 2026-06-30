@@ -17,7 +17,8 @@ od:
   surface: web
   platform: desktop
   category: design-engineering
-  upstream: "https://github.com/emilkowalski/make-interfaces-feel-better"
+  upstream: "https://github.com/jakubkrehel/make-interfaces-feel-better"
+  source-commit: 384562064fcdd99778fcbafd8729626fe6aab02f
   preview:
     type: markdown
   craft:
