@@ -134,45 +134,6 @@ Keep `.github/workflows/ci.yml` as the only approved workflow path unless a main
 
 Use `git diff --check` before finishing workflow edits.
 
-## R2 credential validation preflight
-
-Any workflow or composite action that runs `aws s3` commands (or otherwise invokes
-R2 APIs) must include a preflight validation step that checks all required R2
-secrets are non-empty BEFORE the upload/command step. The canonical pattern:
-
-```yaml
-- name: Validate R2 config
-  if: ${{ inputs.upload == 'true' }}  # only when the upload path is active
-  shell: bash
-  env:
-    R2_ENDPOINT: ${{ inputs.r2-endpoint }}
-    R2_BUCKET: ${{ inputs.r2-bucket }}
-    R2_ACCESS_KEY_ID: ${{ inputs.r2-access-key-id }}
-    R2_SECRET_ACCESS_KEY: ${{ inputs.r2-secret-access-key }}
-  run: |
-    missing=0
-    for var in R2_ENDPOINT R2_BUCKET R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY; do
-      if [ -z "${!var}" ]; then
-        echo "::error::$var is empty — the corresponding secret is missing or not set. Upload cannot proceed."
-        missing=1
-      fi
-    done
-    if [ "$missing" -ne 0 ]; then
-      echo "::error::R2 upload is enabled but one or more R2 secrets are empty."
-      exit 1
-    fi
-```
-
-This applies to:
-- Composite actions that accept R2 inputs and run `aws s3` commands.
-- Workflow-level steps that use R2 secrets directly (e.g., `bake-plugin-previews-gc.yml`,
-  `metrics.yml`).
-- Any new workflow that adds R2 access.
-
-Without this preflight, missing secrets produce a cryptic AWS CLI error
-(`Bad value for --endpoint-url "": scheme is missing`) instead of an actionable
-annotation naming the exact missing secret.
-
 ## FAQ
 
 ### Should I add a new `*.comment.atom.yml` workflow?

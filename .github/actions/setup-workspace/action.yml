@@ -31,18 +31,17 @@ runs:
 
         if [ "$persistent_enabled" = "true" ]; then
           if [ -z "${OPEN_DESIGN_CI_CACHE:-}" ]; then
-            echo "::warning::runner-labels contains od-persistent-ci, but OPEN_DESIGN_CI_CACHE is not set — falling back to standard cache" >&2
-            echo "enabled=false" >> "$GITHUB_OUTPUT"
-          else
-            store_dir="$OPEN_DESIGN_CI_CACHE/pnpm-store"
-            mkdir -p "$store_dir"
-            {
-              echo "NPM_CONFIG_STORE_DIR=$store_dir"
-              echo "npm_config_store_dir=$store_dir"
-            } >> "$GITHUB_ENV"
-            echo "enabled=true" >> "$GITHUB_OUTPUT"
-            echo "path=$store_dir" >> "$GITHUB_OUTPUT"
+            echo "runner-labels contains od-persistent-ci, but OPEN_DESIGN_CI_CACHE is not set" >&2
+            exit 1
           fi
+          store_dir="$OPEN_DESIGN_CI_CACHE/pnpm-store"
+          mkdir -p "$store_dir"
+          {
+            echo "NPM_CONFIG_STORE_DIR=$store_dir"
+            echo "npm_config_store_dir=$store_dir"
+          } >> "$GITHUB_ENV"
+          echo "enabled=true" >> "$GITHUB_OUTPUT"
+          echo "path=$store_dir" >> "$GITHUB_OUTPUT"
         else
           echo "enabled=false" >> "$GITHUB_OUTPUT"
         fi
