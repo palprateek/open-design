@@ -130,7 +130,7 @@ Exit animations should be softer and less attention-grabbing than enter animatio
     opacity: 0,
     y: -12,
     filter: "blur(4px)",
-    transition: { duration: 0.15, ease: "easeIn" },
+    transition: { duration: 0.15, ease: "easeOut" },
   }}
 >
   {content}
@@ -146,7 +146,7 @@ Exit animations should be softer and less attention-grabbing than enter animatio
   exit={{
     opacity: 0,
     x: "-100%",
-    transition: { duration: 0.2, ease: "easeIn" },
+    transition: { duration: 0.2, ease: "easeOut" },
   }}
 >
   {content}
@@ -160,7 +160,7 @@ Exit animations should be softer and less attention-grabbing than enter animatio
 .item-exit {
   opacity: 0;
   transform: translateY(-12px);
-  transition: opacity 150ms ease-in, transform 150ms ease-in;
+  transition: opacity 150ms ease-out, transform 150ms ease-out;
 }
 
 /* Bad — dramatic exit that steals focus */
@@ -225,7 +225,7 @@ function IconButton({ isActive, ActiveIcon, InactiveIcon }) {
           className={cn(
             "absolute inset-0 flex items-center justify-center",
             "transition-[opacity,filter,scale] duration-300",
-            "cubic-bezier(0.2, 0, 0, 1)",
+            "ease-[cubic-bezier(0.2,0,0,1)]",
             isActive
               ? "scale-100 opacity-100 blur-0"
               : "scale-[0.25] opacity-0 blur-[4px]"
@@ -236,7 +236,7 @@ function IconButton({ isActive, ActiveIcon, InactiveIcon }) {
         <div
           className={cn(
             "transition-[opacity,filter,scale] duration-300",
-            "cubic-bezier(0.2, 0, 0, 1)",
+            "ease-[cubic-bezier(0.2,0,0,1)]",
             isActive
               ? "scale-[0.25] opacity-0 blur-[4px]"
               : "scale-100 opacity-100 blur-0"
