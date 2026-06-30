@@ -16,7 +16,8 @@ od:
   surface: web
   platform: desktop
   category: design-engineering
-  upstream: "https://animations.dev"
+  upstream: "https://github.com/emilkowalski/skills"
+  source-commit: a47903a06a05d2e24c483bd8961c85969a51a494
   preview:
     type: markdown
   craft:
